@@ -1,0 +1,40 @@
+{
+  "name": "dannos_bot",
+  "version": "1.0.0",
+  "main": "dist/src/bot.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "yarn prebuild && tsc",
+    "prebuild": "rimraf dist",
+    "lint": "eslint --ext .ts --cache src",
+    "lint:fix": "yarn lint --fix",
+    "run:pro": "cross-env NODE_ENV=production node .",
+    "run:dev": "yarn build && cross-env NODE_ENV=development node .",
+    "docs:build": "typedoc --tsconfig tsconfig.json",
+    "docs:watch": "yarn docs:build --watch",
+    "deploy:commands": "yarn build && node ./setup/deploy-command.js"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "rimraf": "^3.0.2",
+    "typedoc": "^0.22.17",
+    "typedoc-dark-theme": "^0.0.11",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "@discordjs/builders": "^0.15.0",
+    "@discordjs/rest": "^0.5.0",
+    "cross-env": "^7.0.3",
+    "discord-api-types": "^0.34.0",
+    "discord.js": "^13.8.0",
+    "dotenv": "^16.0.1",
+    "sequelize": "^6.21.0",
+    "sqlite3": "^5.0.8"
+  }
+}
