@@ -5,7 +5,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v10');
 
 const commands = [];
-const commandsPath = path.join(process.cwd(), 'dist/src/commands');
+const commandsPath = path.join(process.cwd(), 'dist/src/Commands');
 const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
 
 commandFiles.forEach((file) => {
