@@ -43,7 +43,7 @@ async function GetInfosList(client: BotClient) {
     const name = info.getDataValue('name');
     if (name) data.push(name);
   });
-  return data.sort();
+  return data;
 }
 
 // #endregion
@@ -287,7 +287,7 @@ async function listInfo(client: BotClient, interaction: CommandInteraction) {
   const data: Array<string> = await GetInfosList(client);
   const embed = new MessageEmbed()
     .setColor(0x12a1f4)
-    .setDescription(data.map((i) => `\`${i}\``).sort().join(','));
+    .setDescription(data.map((i) => `\`${i}\``).sort().join(', '));
 
   return interaction.reply({ embeds: [embed] });
 }

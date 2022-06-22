@@ -33,7 +33,7 @@ export = {
         await command.executeModalSubmit(client, interaction);
       }
 
-      if (isModalSubmit) {
+      if (isAutocomplete) {
         await command.executeAutocomplete(client, interaction);
       }
     } catch (error) {
