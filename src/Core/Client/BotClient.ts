@@ -1,6 +1,9 @@
+/* eslint-disable no-use-before-define */
 import fs from 'node:fs';
 import path from 'node:path';
-import { Client, ClientOptions, Collection } from 'discord.js';
+import {
+  Client, ClientOptions, Collection,
+} from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { Database } from '../index';
 
@@ -14,6 +17,7 @@ export interface Command {
   data: SlashCommandBuilder;
   execute: Function;
   executeModalSubmit: Function;
+  executeAutocomplete: Function;
 }
 
 export interface BotClient extends Client {
