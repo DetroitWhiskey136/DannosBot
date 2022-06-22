@@ -275,7 +275,8 @@ async function listInfo(client: BotClient, interaction: CommandInteraction) {
 
   const embed = new MessageEmbed()
     .setColor(0x12a1f4)
-    .setDescription(data.join(', '));
+    .setDescription(data.join(', '))
+    .setFooter({ text: `Total: ${data.length}` });
 
   return interaction.reply({ embeds: [embed] });
 }
