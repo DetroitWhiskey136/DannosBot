@@ -266,6 +266,9 @@ const listInfoSubCommand = new SlashCommandSubcommandBuilder()
   .setDescription('Lists all available infos in the database!');
 
 async function listInfo(client: BotClient, interaction: CommandInteraction) {
+  // TODO Extend the embed creation to auto parse the length of
+  // the data due to possible exceeding the character limit of
+  // an embed description.
   const data: Array<string> = [];
   const infos = await client.database.Infos.findAll();
   infos.forEach((info) => {
