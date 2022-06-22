@@ -7,10 +7,11 @@ export = {
   async execute(client: BotClient, interaction: CommandInteraction) {
     const isCommand = interaction.isCommand();
     const isModalSubmit = interaction.isModalSubmit();
+    const isAutocomplete = interaction.isAutocomplete();
 
     let commandName;
 
-    if (isCommand) {
+    if (isCommand || isAutocomplete) {
       commandName = interaction.commandName;
     }
 
@@ -30,6 +31,10 @@ export = {
 
       if (isModalSubmit) {
         await command.executeModalSubmit(client, interaction);
+      }
+
+      if (isModalSubmit) {
+        await command.executeAutocomplete(client, interaction);
       }
     } catch (error) {
       console.error(error);

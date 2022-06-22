@@ -5,6 +5,7 @@ import {
   SlashCommandSubcommandBuilder,
 } from '@discordjs/builders';
 import {
+  AutocompleteInteraction,
   CommandInteraction,
   GuildMemberRoleManager,
   MessageActionRow,
@@ -32,6 +33,19 @@ async function checkPermission(interaction: CommandInteraction) {
   }
   return true;
 }
+// #endregion
+
+// #region Get Infos as List
+async function GetInfosList(client: BotClient) {
+  const data: string[] = [];
+  const infos = await client.database.Infos.findAll();
+  infos.forEach((info) => {
+    const name = info.getDataValue('name');
+    if (name) data.push(name);
+  });
+  return data.sort();
+}
+
 // #endregion
 
 // #region Add Sub Command
@@ -227,7 +241,8 @@ async function deleteInfo(client: BotClient, interaction: CommandInteraction) {
 const infoNameStringOption = new SlashCommandStringOption()
   .setName('name')
   .setDescription('The info name you would like to retrieve!')
-  .setRequired(true);
+  .setRequired(true)
+  .setAutocomplete(true);
 
 const getInfoSubCommand = new SlashCommandSubcommandBuilder()
   .setName('get')
@@ -269,17 +284,10 @@ async function listInfo(client: BotClient, interaction: CommandInteraction) {
   // TODO Extend the embed creation to auto parse the length of
   // the data due to possible exceeding the character limit of
   // an embed description.
-  const data: Array<string> = [];
-  const infos = await client.database.Infos.findAll();
-  infos.forEach((info) => {
-    const name = info.getDataValue('name');
-    if (name) data.push(`\`${name}\``);
-  });
-
+  const data: Array<string> = await GetInfosList(client);
   const embed = new MessageEmbed()
     .setColor(0x12a1f4)
-    .setDescription(data.join(', '))
-    .setFooter({ text: `Total: ${data.length}` });
+    .setDescription(data.map((i) => `\`${i}\``).sort().join(','));
 
   return interaction.reply({ embeds: [embed] });
 }
@@ -411,5 +419,14 @@ export = {
     }
 
     return true;
+  },
+
+  async executeAutocomplete(client: BotClient, interaction: AutocompleteInteraction) {
+    const choices: string[] = await GetInfosList(client);
+    const focusedValue = interaction.options.getFocused() as string;
+    const filtered = choices.filter((choice) => choice.startsWith(focusedValue));
+    await interaction.respond(
+      filtered.map((choice) => ({ name: choice, value: choice })),
+    );
   },
 };

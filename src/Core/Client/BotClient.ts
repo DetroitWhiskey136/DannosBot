@@ -14,6 +14,7 @@ export interface Command {
   data: SlashCommandBuilder;
   execute: Function;
   executeModalSubmit: Function;
+  executeAutocomplete: Function;
 }
 
 export interface BotClient extends Client {
