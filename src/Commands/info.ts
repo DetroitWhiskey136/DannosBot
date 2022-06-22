@@ -18,13 +18,13 @@ import { Infos } from '../Core/Database/Database';
 import { BotClient } from '../Core/index';
 // #endregion
 
-const allowedRole = '472958207845728276';
+const allowedRole = process.env.ALLOWED_ROLE;
 
 // #region Check Permissions Function
 async function checkPermission(interaction: CommandInteraction) {
   const memberRoles: GuildMemberRoleManager = await interaction
     .member?.roles as GuildMemberRoleManager;
-  const hasAllowedRole = memberRoles.resolve(allowedRole);
+  const hasAllowedRole = memberRoles.resolve(allowedRole!);
 
   if (!hasAllowedRole) {
     interaction.reply({ content: 'You do not have the required permissions to use this command', ephemeral: true });
