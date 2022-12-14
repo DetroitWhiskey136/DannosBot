@@ -1,5 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
 import { BotClient } from '../Core/index';
 
 export = {
@@ -7,7 +6,7 @@ export = {
     .setName('user')
     .setDescription('Replies with user info!'),
 
-  async execute(client: BotClient, interaction: CommandInteraction) {
+  async execute(client: BotClient, interaction: ChatInputCommandInteraction) {
     await interaction.reply(`Your tag: ${interaction.user.tag}\nYour id: ${interaction.user.id}`);
   },
 };

@@ -1,9 +1,9 @@
 import 'dotenv/config';
-import { Intents } from 'discord.js';
+import { GatewayIntentBits } from 'discord.js';
 import { BotClient } from './index';
 
 new BotClient({
-  intents: [Intents.FLAGS.GUILDS],
+  intents: [GatewayIntentBits.Guilds],
 })
   .loadCommands()
   .loadEvents()

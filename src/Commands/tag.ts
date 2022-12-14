@@ -1,5 +1,8 @@
-import { SlashCommandBuilder, SlashCommandStringOption, SlashCommandSubcommandBuilder } from '@discordjs/builders';
-import { CommandInteraction } from 'discord.js';
+import {
+  ChatInputCommandInteraction,
+  SlashCommandBuilder,
+  SlashCommandStringOption, SlashCommandSubcommandBuilder,
+} from 'discord.js';
 import { BotClient } from '../Core/index';
 
 // #region Add Sub Command
@@ -17,9 +20,9 @@ const addSubcommand = new SlashCommandSubcommandBuilder()
   .addStringOption(nameOption)
   .addStringOption(descriptionOption);
 
-async function AddTag(client: BotClient, interaction: CommandInteraction) {
-  const tagName = interaction.options.getString('tagline');
-  const tagDescription = interaction.options.getString('description');
+async function AddTag(client: BotClient, interaction: ChatInputCommandInteraction) {
+  const tagName = interaction.options.get('tagline')?.value as string;
+  const tagDescription = interaction.options.get('description')?.value as string;
 
   try {
     // equivalent to: INSERT INTO tags (name, description, username) values (?, ?, ?);
@@ -36,6 +39,8 @@ async function AddTag(client: BotClient, interaction: CommandInteraction) {
       return interaction.reply('That tag already exists.');
     }
 
+    console.log(error);
+
     return interaction.reply('Something went wrong with adding a tag.');
   }
 }
@@ -51,9 +56,9 @@ const TagCommand = new SlashCommandBuilder()
 export = {
   data: TagCommand,
 
-  async execute(client: BotClient, interaction: CommandInteraction) {
+  async execute(client: BotClient, interaction: ChatInputCommandInteraction) {
     console.log(interaction.commandName);
-    switch (interaction.commandName) {
+    switch (interaction.options.getSubcommand()) {
       case 'add':
         AddTag(client, interaction);
         break;

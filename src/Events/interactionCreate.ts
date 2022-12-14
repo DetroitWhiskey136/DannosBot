@@ -1,24 +1,15 @@
-import { CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction } from 'discord.js';
 import { BotClient } from '../Core/index';
 
 export = {
   name: 'interactionCreate',
   once: false,
-  async execute(client: BotClient, interaction: CommandInteraction) {
+  async execute(client: BotClient, interaction: ChatInputCommandInteraction) {
     const isCommand = interaction.isCommand();
     const isModalSubmit = interaction.isModalSubmit();
     const isAutocomplete = interaction.isAutocomplete();
 
-    let commandName;
-
-    if (isCommand || isAutocomplete) {
-      commandName = interaction.commandName;
-    }
-
-    if (isModalSubmit) {
-      // eslint-disable-next-line prefer-destructuring
-      commandName = interaction.customId.split('_')[0];
-    }
+    const { commandName } = interaction;
 
     const command = client.commands.get(commandName as string);
 

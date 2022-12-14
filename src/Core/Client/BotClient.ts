@@ -2,9 +2,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-  Client, ClientOptions, Collection,
+  Client, ClientOptions, Collection, SlashCommandBuilder,
 } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
 import { Database } from '../index';
 
 export interface Event {
