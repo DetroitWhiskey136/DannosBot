@@ -1,3 +1,5 @@
+// noinspection JSCheckFunctionSignatures,JSClosureCompilerSyntax
+
 require('dotenv').config();
 const fs = require('node:fs');
 const path = require('node:path');
@@ -15,8 +17,9 @@ commandFiles.forEach((file) => {
 
 const rest = new REST({ version: '10' }).setToken(process.env.BOT_TOKEN);
 
+// noinspection JSUnresolvedFunction
 rest.put(
-  Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
+  Routes.applicationGuildCommands(process.env.GUILD_ID, process.env.GUILD_ID),
   { body: commands },
 )
   .then(() => console.log('Successfully registered application commands.'))

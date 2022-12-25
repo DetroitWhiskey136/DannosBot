@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction } from 'discord.js';
-import { BotClient } from '../Core/index';
+import { BotClient } from '../Core';
 
 export = {
   name: 'interactionCreate',

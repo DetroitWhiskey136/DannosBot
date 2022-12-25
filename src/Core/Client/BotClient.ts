@@ -40,6 +40,7 @@ export interface BotClient extends Client {
   loadEvents(): BotClient;
 }
 
+// noinspection JSUnusedGlobalSymbols
 export class BotClient extends Client {
   private CommandsPath = path.join(__dirname, '../../Commands');
 

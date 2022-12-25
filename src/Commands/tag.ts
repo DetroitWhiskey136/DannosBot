@@ -3,7 +3,7 @@ import {
   SlashCommandBuilder,
   SlashCommandStringOption, SlashCommandSubcommandBuilder,
 } from 'discord.js';
-import { BotClient } from '../Core/index';
+import { BotClient } from '../Core';
 
 // #region Add Sub Command
 const nameOption = new SlashCommandStringOption()
@@ -60,11 +60,11 @@ export = {
     console.log(interaction.commandName);
     switch (interaction.options.getSubcommand()) {
       case 'add':
-        AddTag(client, interaction);
+        await AddTag(client, interaction);
         break;
 
       default:
-        interaction.reply({
+        await interaction.reply({
           content: 'Something went wrong processing your command try again later!',
           ephemeral: true,
         });
