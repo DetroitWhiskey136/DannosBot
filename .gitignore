@@ -1,6 +1,19 @@
-node_modules
+# Editors
 .history
-dist/*
+.vscode
+.idea
+
+# Configs
 .env
-data/*
+
+# Node Modules
+node_modules
+
+# Data Folders
+data/**/*
+
+# Distribution
+dist/**/*
+
+# Caches
 .eslintcache
