@@ -1,8 +1,7 @@
-/* eslint-disable no-use-before-define */
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-  Client, ClientOptions, Collection, SlashCommandBuilder,
+  Client, Collection, SlashCommandBuilder,
 } from 'discord.js';
 import { Database } from '../index';
 
@@ -20,9 +19,6 @@ export interface Command {
 }
 
 export interface BotClient extends Client {
-  commands: Collection<string, Command>;
-  database: typeof Database;
-
   /**
    * Loads all the commands from the Commands folder.
    *
@@ -40,7 +36,6 @@ export interface BotClient extends Client {
   loadEvents(): BotClient;
 }
 
-// noinspection JSUnusedGlobalSymbols
 export class BotClient extends Client {
   private CommandsPath = path.join(__dirname, '../../Commands');
 
@@ -50,11 +45,9 @@ export class BotClient extends Client {
 
   private EventFiles = this.getFiles(this.EventsPath);
 
-  constructor(options: ClientOptions) {
-    super(options);
-    this.commands = new Collection();
-    this.database = Database;
-  }
+  public commands: Collection<string, Command> = new Collection();
+
+  public database = Database;
 
   public loadCommands() {
     this.CommandFiles.forEach(async (file) => {

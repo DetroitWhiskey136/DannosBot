@@ -40,6 +40,7 @@
     "emit": true,
     "theme": "default",
     "darkHighlightTheme": "material-darker",
-    "logLevel": "Verbose"
+    "logLevel": "Verbose",
+    "json": "./data/docs/documentation.json"
   }
 }

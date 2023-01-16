@@ -9,6 +9,6 @@ new BotClient({
   .loadEvents()
   .login(process.env.BOT_TOKEN)
   .then(() => {
-    console.log(`Bot has logged in at: ${Date.now().toLocaleString()}`);
+    console.log(`Bot has logged in at: ${Date.now()}`);
   })
   .catch((error) => console.error(error));
